@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/media/images/favicon.ico')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{url_for('static', filename='/javascript/dashboard/main-dashboard.js')}}"></script>
+<title>{{ name }}</title>
+{% endblock %}
+
+{% block body %}
+    <div class="navbar-container">
+        <ul class="navbar">
+            <li><img id="banner" src="/userbanner" alt="User Logo" draggable="false" href="/instellingen" height="148px"></li>
+        </ul>
+    </div>
+    <div class="grid-container">
+        {% for employee in employees %}
+            <button type="button" class="medewerkerKnop" name="{{ employee.first_name + '_' + employee.last_name }}" onclick="toggle(this, '{{ employee.first_name }}', '{{ employee.last_name }}', '{{ employee.present }}')" value="{{ employee.present }}">{{ employee.first_name + " " + employee.last_name }}</button>
+        {% endfor %}
+    </div>
+    <div class="modal-parent">
+        <div class="modal">
+            <p id="boodschap">{{ loginMessage }}</p>
+            <span class="X" draggable="true">&times;</span>
+        </div>
+    </div> 
+    <script>
+        var csrf_token = "{{ csrf_token() }}"
+        var btn = document.querySelectorAll("button");
+        var parent = document.querySelector(".modal-parent");
+        var x = document.querySelector(".X");
+        var alreadyClosed = false;
+        // When a button is pressed, make the modal appear.
+        for (let button = 0; button < btn.length; button++) {
+            btn[button].addEventListener("click", appear, btn[button]);
+        }
+        function appear(buttonPressed) {
+            if (buttonPressed.target.value == "True"){
+                document.getElementById('boodschap').innerHTML = "{{ loginMessage }}";
+            } 
+            if (buttonPressed.target.value == "False"){
+                document.getElementById('boodschap').innerHTML = "{{ logoutMessage }}";
+            } 
+            parent.style.display = "block";
+            var keep_dialog_time = Number("{{ messageTime }}") * 1000; 
+            setTimeout(function(){
+                if (alreadyClosed == false) { 
+                    parent.style.display = "none";
+                }
+                alreadyClosed = false;
+            }, keep_dialog_time);
+        }
+        x.addEventListener("click", disappearX);
+        function disappearX() {
+            parent.style.display = "none";
+            alreadyClosed = true;
+        }
+    </script>
+    <footer>
+        <p>© 2022 Alle rechten voorbehouden</p>
+        <a class="fancy-link" href="/instellingen">Instellingen</a>
+    </footer>
+{% endblock %}

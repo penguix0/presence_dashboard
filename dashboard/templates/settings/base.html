@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/media/images/favicon.ico')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings/settings.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% block head_content %}{% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div class="body" id="body-pd">
+        <header class="header" id="header">
+            <div class="header_toggle">
+                <i class="bx bx-menu" id="header-toggle"></i>
+            </div>
+            <div class="header_img_container">
+                <a href="/instellingen/account"><img class="header_image" src="{{url_for('static', filename='/media/images/user.png')}}"
+                    alt="User Icon"></a>
+            </div>
+        </header>
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav_logo">
+                        <i class="bx bxs-cog nav_logo_icon "></i>
+                        <span class="nav_logo_name">Opties</span>
+                    </a>
+                    <div class="nav_list">
+                        <a href="/instellingen/dashboard" class="nav_link">
+                            <i class="bx bx-grid-alt nav_icon"></i>
+                            <span class="nav_name">Dashboard</span>
+                        </a>
+                        <a href="/instellingen/medewerkers" class="nav_link">
+                            <i class="bx bx-user nav_icon"></i>
+                            <span class="nav_name">Medewerkers</span>
+                        </a>
+                        <a href="/instellingen/notificaties" class="nav_link">
+                            <i class="bx bx-message nav_icon"></i>
+                            <span class="nav_name">Notificaties </span>
+                        </a>
+                        <a href="/instellingen/tijd" class="nav_link">
+                            <i class="bx bx-time-five nav_icon"></i>
+                            <span class="nav_name">Tijd</span>
+                        </a>
+                        <a href="/instellingen/bestanden" class="nav_link">
+                            <i class="bx bx-folder nav_icon"></i>
+                            <span class="nav_name">Bestanden</span>
+                        </a>
+                        <a href="/" class="nav_link">
+                            <i class="bx bx-arrow-back nav_icon"></i>
+                            <span class="nav_name">Terug</span>
+                        </a>
+                    </div>
+                </div>
+                <a href="/logout" class="nav_link">
+                    <i class="bx bx-log-out nav_icon"></i>
+                    <span class="nav_name">Uitloggen</span>
+                </a>
+            </nav>
+        </div>
+        {% block contents %}{% endblock %}
+
+        <script src="{{url_for('static', filename='javascript/instellingen/main-settings.js')}}"></script>
+    </div>
+{% endblock %}

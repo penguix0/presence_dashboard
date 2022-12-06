@@ -1,0 +1,52 @@
+/* Styling for the employee buttons */
+.grid-container {
+    /**
+    * User input values.
+    */
+    --grid-layout-gap: 20px;
+    --grid-column-count: 4;
+    --grid-item--min-width: 300px;
+    
+    /**
+    * Calculated values.
+    */
+    --gap-count: calc(var(--grid-column-count) - 1);
+    --total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
+    --grid-item--max-width: calc((100% - var(--total-gap-width)) / var(--grid-column-count));
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr));
+    grid-gap: var(--grid-layout-gap);
+
+    /* If found you, you were lost, but I needed you. So many hours I have spend searching for this fucking line of css. */
+    place-items: left;
+}
+.clickable {
+    display: pointer;
+}
+
+.infoBlock {
+    background-color: black;
+    color: white;
+    
+    width: auto;
+    max-height: 300px;
+    height: 150px;
+    
+    padding: 15px 20px;
+    border-radius: 15px;
+
+    transition: all 0.3s ease;
+}
+.infoBlock:hover, .infoBlock:focus {
+    transform: scale(1.05);
+}
+.infoBlock h2 {
+    font-size: larger;
+    display: inline;
+}
+.infoBlock h3 {
+    font-size: small;
+    color: lightgrey;
+    display: inline;
+}

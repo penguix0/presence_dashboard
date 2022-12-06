@@ -1,0 +1,28 @@
+.deletesubmit {
+    background-color: #FF7F7F;
+    color: white;
+    border-radius: 0.5rem;
+    padding: 0.4rem 0;
+    padding-left: 0px;
+    padding-left: 1rem;
+    max-width: 500px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+.deletesubmit:hover, .deletesubmit:focus {
+    background-color: red;
+    color: black;
+    padding: 0.6rem 0;
+    padding-left: 0px;
+    padding-left: 1rem;
+}
+.delete-account {
+    all: unset;
+    width: 100%;
+    border: none;
+}
+
+.user-info {
+    color: gray;
+}

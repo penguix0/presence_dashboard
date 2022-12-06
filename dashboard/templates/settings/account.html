@@ -1,0 +1,39 @@
+{% extends 'settings/base.html' %}
+
+{% block head_content %}
+<title>Account</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings/settings-account.css') }}">
+{% endblock %}
+
+{% block contents %}
+<h1>Hallo {{username}}</h1>
+
+<p>In dit menu kun je je account instellingen wijzigen.</p>
+
+<div class="user-info">
+    <p>Gebruikersnaam: {{username}}</p>
+    <p>E-mailadres: {{email}}</p>
+</div>
+
+<h2>Wachtwoord veranderen</h2>
+<p>Verander hier het wachtwoord van je account</p>
+<form action="/instellingen/account" method="POST">
+    {{ password.hidden_tag() }}
+    <div class="input">
+        {{ password.old_password }}
+        {{ password.new_password }}
+    </div>
+    <div class="submit">
+        {{ password.password_submit }}
+    </div>
+</form>
+
+<h2>Account verwijderen</h2>
+<p>Klik hier om je account te verwijderen</p>
+<div class="deletesubmit">
+    <form method="POST" enctype="multipart/form-data">
+        {{ deleteAccountForm.hidden_tag() }}
+        {{ deleteAccountForm.delete_account_submit(class="delete-account") }}
+    </form>
+</div>
+{% endblock %}

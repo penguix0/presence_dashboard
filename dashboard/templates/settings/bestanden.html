@@ -1,0 +1,58 @@
+{% extends 'settings/base.html' %}
+
+{% block head_content %}
+<title>Bestanden</title>
+{% endblock %}
+
+{% block contents %}
+<h1>Bestanden</h1>
+<form action="/instellingen/bestanden" method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="label">
+        <label for="file">
+            Upload hier een .png of .jpg foto die boven aan het scherm wordt weergegeven.
+            We raden u aan om een witte achtergrond te gebruiken en de afbeelding een beeldverhouding van 16:9 te geven.
+        </label>
+    </div>
+    <div class="file">
+        <!-- hide this button so that it is not visible to the user -->
+        {{ form.picture(hidden="hidden") }}
+        <div class="file-upload-button-container">
+            <button type="button" id="file-button">Uploaden</button>
+        </div>
+        <div class="file-upload-text-container">
+            <span id="file-text">Je hebt nog geen bestand gekozen</span>
+        </div>
+    </div>
+    {% if form.picture.errors %}
+        {% for error in form.picture.errors %}
+            <div class="error">
+                <p>{{ error }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="submit">
+        {{ form.changeBannerSubmit }}
+    </div>
+    <script>
+        const realFileButton = document.getElementById("real-file-button");
+        const visibleFileButton = document.getElementById("file-button");
+        const fileText = document.getElementById("file-text");
+
+        visibleFileButton.addEventListener('click', function () {
+            // pass the click on the visible button to the hidden button
+            realFileButton.click();
+        });
+
+        realFileButton.addEventListener("change", function () {
+            // If a file was chosen
+            if (realFileButton.value) {
+                fileText.innerHTML = realFileButton.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+            } else {
+                fileText.innerHTML = "Geen bestand geselecteerd.";
+            }
+        });
+    </script>
+</form>
+
+{% endblock %}

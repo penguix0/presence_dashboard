@@ -1,0 +1,33 @@
+{% extends 'settings/base.html' %}
+
+{% block head_content %}
+<title>Notificaties</title>
+{% endblock %}
+
+{% block contents %}
+<h1>Notificaties</h1>
+<form action="/instellingen/notificaties" method="POST">
+    {{ loginForm.hidden_tag() }}
+    <div class="label">
+        <label for="loginMessage">Boodschap weergegeven bij aanmelden:</label>
+    </div>
+    <div class="input">
+        {{ loginForm.loginMessage(value=loginMessage) }}
+    </div>
+    <div class="submit">
+        {{ loginForm.loginSubmit }}
+    </div>
+</form>
+<form action="/instellingen/notificaties" method="POST">
+    {{ logoutForm.hidden_tag() }}
+    <div class="label">
+        <label for="logoutMessage">Boodschap weergegeven bij afmelden:</label>
+    </div>
+    <div class="input">
+        {{ logoutForm.logoutMessage(value=logoutMessage) }}
+    </div>
+    <div class="submit">
+        {{ logoutForm.logoutSubmit }}
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'settings/base.html' %}
+
+{% block head_content %}
+<title>Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings/settings-dashboard.css') }}">
+{% endblock %}
+
+{% block contents %}
+<h1>Dashboard</h1>
+<div class="grid-container">
+    <a href="/instellingen/account">
+        <div class="infoBlock">
+            <h2>Welkom {{ username }}</h2>
+        </div> 
+    </a>
+    <a href="/instellingen/medewerkers">
+        <div class="infoBlock">
+            <h2>Er zijn momenteel </h2><h2 class="present_employee_count"></h2><h2> medewerkers aanwezig</h2><br>
+            <h3 class="present_employee_count"></h3><h3>/</h3><h3 class="employee_count"></h3>
+        </div> 
+    </a>
+    <div class="infoBlock">
+        <h2>De welkomsboodschap is vandaag: <i>"{{ login_message }}"</i></h2><br>
+        <h3>Je kan hem <a class="fancy-link" href="/instellingen/notificaties">hier</a> veranderen.</h3>
+    </div> 
+    <div class="infoBlock">
+        <h2>De afscheidsboodscap is vandaag: <i>"{{ logout_message }}"</i></h2><br>
+        <h3>Je kan hem <a class="fancy-link" href="/instellingen/notificaties">hier</a> veranderen.</h3>
+    </div> 
+
+    <!-- Used to update the emplyee count -->
+    <script>
+        var employeeCount = 0;
+        var presentEmployeeCount = 0;
+        var present_employee_count_list = document.getElementsByClassName("present_employee_count");
+        console.log(present_employee_count_list);
+        var employee_count_list = document.getElementsByClassName("employee_count");
+
+        // Set a timer and make a request every time that timer runs out
+        var timer = setInterval(getEmployeeStatus, 60000);
+        function getEmployeeStatus() {
+            var url_to_get = "/dashboard/employees/";
+            var xhr = new XMLHttpRequest();
+            xhr.callback = countEmployees;
+            xhr.onload = xhrSuccess;
+            xhr.onerror = xhrError;
+            xhr.open("GET", url_to_get, true);
+            xhr.send(null);
+        }
+        function countEmployees() {
+            var response = JSON.parse(this.responseText)
+            employeeCount = 0;
+            presentEmployeeCount = 0;
+            for (let employee in response) {
+                if (response[employee] === true) {
+                    presentEmployeeCount++;
+                }
+                employeeCount++;
+            }
+            changeEmployeeCount();
+        }
+        function changeEmployeeCount() {
+            for (let employee in present_employee_count_list) {
+                present_employee_count_list[employee].innerHTML = presentEmployeeCount;
+            }
+            for (let employee in employee_count_list) {
+                employee_count_list[employee].innerHTML = employeeCount;
+            }
+        }
+        function xhrSuccess() {
+            // When the request is completed, pass the xmlhttp request with arguments
+            this.callback.apply(this);
+        }
+
+        function xhrError() {
+            console.error(this.statusText);
+        }
+
+        // execute the function for the first time
+        getEmployeeStatus();
+    </script>
+</div>
+
+{% endblock %}

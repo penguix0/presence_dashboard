@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Pagina niet gevonden</title>
+<link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/media/images/favicon.ico')}}">
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <img src="{{url_for('static', filename='/media/images/sadmac.bmp')}}" alt="Sad Macintosh face" draggable="false">
+    <div class="text">
+        <h1>404</h1>
+        <h2>Pagina niet gevonden</h2>
+        <a class="fancy-link" href="/">Ga terug naar de app</a>
+    </div>
+</div>
+
+<style>
+    * {
+        background-color: black;
+    }
+    .content {
+        margin: 0 auto;
+        width: 25%;
+        height: 25%;
+
+        text-align: center;
+        color: white;
+        font-family: monospace;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -70%);
+    }
+    img {
+        background-color: white;
+    }
+    a {
+        color: darkmagenta;
+    }
+    .fancy-link {
+        text-decoration: none;
+        position: relative;
+    }
+
+    .fancy-link::after {
+        /* a sudo element will never appear if it does not have a content element */
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: currentColor;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 200ms ease-in;
+    }
+
+    .fancy-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+</style>
+{% endblock %}

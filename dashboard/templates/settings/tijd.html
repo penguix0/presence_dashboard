@@ -1,0 +1,21 @@
+{% extends 'settings/base.html' %}
+
+{% block head_content %}
+<title>Tijd</title>
+{% endblock %}
+
+{% block contents %}
+<h1>Tijd</h1>
+<form action="/instellingen/tijd" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="label">
+        <label for="messageTime">Notificatie duur in seconde:</label>
+    </div>
+    <div class="input">
+        {{ form.messageTime(value=messageTime) }}
+    </div>
+    <div class="submit">
+        {{ form.submit }}
+    </div>
+</form>
+{% endblock %}

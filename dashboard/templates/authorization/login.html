@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="login-page">
+    <div class="form">
+        <div class="login">
+            <div class="login-header">
+                <h1>Log in</h1>
+                <p>Vul je inloggegevens in om verder te gaan</p>
+            </div>
+        </div>
+        <form method="POST" class="login-form">
+            {{ form.hidden_tag() }}
+            {{ form.email }}
+            <div class="password">
+                {{ form.password }}
+                {{ form.show_password }}
+            </div>
+            <!-- show and hide password -->
+            <script>
+                window.addEventListener("load", function(){
+                var checkbox  = document.getElementById('{{ form.show_password.id}}');
+                var x = document.getElementById('{{ form.password.id}}');
+                checkbox.addEventListener('change', function() {
+                    if(this.checked) {
+                        x.type = 'text'; 
+                    } else {
+                        x.type = 'password'; 
+                    }
+                });
+            });
+            </script>
+            <div class="remember_me">
+                <label>
+                    {{ form.rememberme(checked="checked") }} Onthoud mij
+                </label>
+            </div>
+            {{ form.submit }}
+        </form>
+        {% if error %}
+            <p class="error"><strong>Fout:</strong> {{ error }}</p>
+        {% endif %}
+        {% if message %}
+            <p class="error"><strong>Fout:</strong> {{ message }}</p>
+        {% endif%}
+        <p class="message">Nog geen account? <a href="/register">Maak een account aan</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="register-page">
+    <div class="form">
+        <div class="register">
+            <div class="register-header">
+                <h1>Registreer</h1>
+                <p>Vul je inloggegevens in om verder te gaan</p>
+            </div>
+        </div>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.email }}
+            {{ form.username }}
+            {{ form.password }}
+            {{ form.submit }}
+        </form>
+        {% if error %}
+            <p class="error"><strong>Fout:</strong> {{ error }}</p>
+        {% endif %}
+        {% if message %}
+            <p class="error"><strong>Fout:</strong> {{ message }}</p>
+        {% endif%}
+        <p class="message"><a class="message" href="/login">Log in</a> als je al een account hebt!</p>
+    </div>
+</div>
+
+{% endblock %}

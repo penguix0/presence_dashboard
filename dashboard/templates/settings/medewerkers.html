@@ -1,0 +1,62 @@
+{% extends 'settings/base.html' %}
+
+{% block head_content %}
+<title>Medewerkers</title>
+{% endblock %}
+
+{% block contents %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings/settings-employees.css') }}">
+
+<h1>Medewerkers</h1>
+<div class="options">
+    <button type="button" class="modify employee-settings-button bx bx-user-plus" onclick="create_employee()"></button>
+    <button type="button" class="modify employee-settings-button bx bx-user-minus" onclick="delete_employee()"></button>
+</div>
+<div class="grid-container">
+    {% for employee in employees %}
+        <button type="button" class="employee-settings-button" name="{{ employee.first_name + '_' + employee.last_name }}"
+            value="{{ employee.present }}" disabled>{{ employee.last_name + ", " + employee.first_name }}</button>
+    {% endfor %}
+</div>
+
+{% if not employees %}
+<h2>Er zijn nog geen medewerkers toegevoegd.</h2>
+{% endif %}
+<p class="total_employees">Totaal: {{ employees|count }} medewerkers</p>
+
+
+<div id="overlay"></div> 
+<div class="spinner-parent">
+    <span class="spinner spinner-large"></span>
+</div>
+
+<!-- creating employees -->
+<div class="modal-parent" id="add-modal">
+    <div class="modal">
+        <span class="X" draggable="true">&times;</span>
+        <h1>Voeg een gebruiker toe:</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {{ newUserForm.hidden_tag() }}
+            {{ newUserForm.new_user_first_name }}
+            {{ newUserForm.new_user_last_name }}
+            {{ newUserForm.new_user_submit(class="submit") }}
+        </form>
+    </div>
+</div>
+<!-- deleting employees -->
+<div class="modal-parent" id="delete-modal">
+    <div class="modal">
+        <span class="X" draggable="true">&times;</span>
+        <h1>Verwijder een gebruiker:</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {{ deleteUserForm.hidden_tag() }}
+            {{ deleteUserForm.delete_user_first_name }}
+            {{ deleteUserForm.delete_user_last_name }}
+            {{ deleteUserForm.delete_user_submit(class="submit") }}
+        </form>
+    </div>
+</div>
+
+<script src="{{url_for('static', filename='javascript/instellingen/medewerkers.js')}}"></script>
+
+{% endblock %}
