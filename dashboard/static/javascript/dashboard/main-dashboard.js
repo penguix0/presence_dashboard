@@ -43,7 +43,7 @@ function getEmployeeStatus() {
 }
 function updateValueOfEachButton() {
     // Get the server response and change each button accordingly
-    var response = JSON.parse(this.responseText)
+    var response = JSON.parse(this.responseText);
     for (let button = 0; button < btn.length; button++) {
         name_without_space = btn[button].name.split("_")
         name_with_space = name_without_space[0] + " " + name_without_space[1]
