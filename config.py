@@ -9,7 +9,7 @@ SECRET_KEY = token_urlsafe(32)
 PORT = 9999
 
 ## Disable DEBUG
-DEBUG = True
+DEBUG = False
 
 ## Path to the index page
 INDEX_PATH = "index.html"
