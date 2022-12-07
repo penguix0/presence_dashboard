@@ -33,14 +33,14 @@ class ChangeBannerForm(FlaskForm):
     changeBannerSubmit = SubmitField("Opslaan", id="submit")
 
 def savePicture(form_picture):
-    prev_picture = path.join(app.root_path, 'database/banners', current_user.image_file)
+    prev_picture = path.join(app.config["UPLOAD_FOLDER"], current_user.image_file)
     if path.exists(prev_picture) and not path.basename(prev_picture) == 'default.jpg':
         remove(prev_picture)
 
     random_hex = token_hex(8)
     _, file_extension = path.splitext(form_picture.filename)
     picture_filename = random_hex + file_extension
-    picture_path = path.join(app.root_path, 'database/banners', picture_filename)
+    picture_path = path.join(app.config["UPLOAD_FOLDER"], picture_filename)
     
     ## resize image to prevent saving big images
     output_size = (800, 450)

@@ -1,4 +1,4 @@
-from os import path
+from os import path, mkdir
 ## library to generate secret key
 from secrets import token_urlsafe
 
@@ -24,7 +24,10 @@ PAGE_NOT_FOUND_PATH = "errorhandling/page_not_found.html"
 LOGIN_PATH = "authorization/login.html"
 REGISTER_PATH = "authorization/register.html"
 ## Folder to upload the uploaded databases to:
-UPLOAD_FOLDER = 'database/banners/'
+UPLOAD_FOLDER = path.join(path.expanduser("~"), "presence_dashboard_images")
+if not path.exists(UPLOAD_FOLDER):
+    mkdir(UPLOAD_FOLDER)
+    
 ALLOWED_EXTENSIONS = ["png", "jpg"]
 
 ## Allowed email characters
