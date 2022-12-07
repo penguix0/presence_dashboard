@@ -13,6 +13,11 @@ sudo apt-get install supervisor -y
 
 sudo chown -R www-data:www-data $PWD
 
-sudo nano /etc/supervisor/conf.d/simpleapp.conf
+
+# Replace variables
+sudo sed 's/VAR1/$PWD/g' ./deployment_files/app.conf
+
+# Copy file over
+sudo cp ./deployment_files/app.conf /etc/supervisor/conf.d/
 
 sudo systemctl restart supervisor.service
